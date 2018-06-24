@@ -1,11 +1,17 @@
+
+
 # dotfiles
 
-> These are my most used dotfile configs.
+These are my most used configuration files.
 
-> These are my personal preferences.
-> Keeping it in public repo since private repos cost money and I needed a backup of these somewhere as I had to reconfigure every thing from scratch everytime I migrated to a new env.
+ I use them when I migrate to a new env and miss my familiar work env.
+ I also have few scripts which I wrote because It saves me the boilerplate work that I have to do while starting a new project.
+> ***Details:*** <br>
+> ***rc** - `ALL RC files`<br>
+> **ccreate** - `script to setup cpp environment for a new project, most of it remains same. It isn't full fledged, requires some customization.`
 
 
-> Note: Not all of it written by me. Uses few plugins vim monokai and cpp highlight. <br>
+
+> **Note:** Not all of it written by me. You will find the references once you enter the relevant file<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use only if you understand.
  
