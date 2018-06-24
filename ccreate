@@ -1,0 +1,158 @@
+#!/bin/bash
+
+generate_cc()
+{
+	VERSION="v0.1"
+	DATE=date
+# add project header
+	 cat > src/$2 <<- EOM
+/*!
+ * @author Raghu Veer S
+ * @version $VERSION
+ * @date $DATE
+ * @warning
+ * @copyright MIT License
+ * @mainpage $1
+ * @section Introduction
+ * @section Dependencies
+ * @section Compilation
+ * @section Usage
+ */
+#include "$3"
+EOM
+}
+
+generate_h()
+{
+  # capitalize project name
+	PNAME=`echo $1 | awk '{print toupper($0)}'`
+	EXT="_H__"
+  # add header guard
+	cat > include/$3 <<- EOM
+#ifndef __$PNAME$EXT
+#define __$PNAME$EXT
+
+#endif // __$PNAME$EXT
+	EOM
+}
+
+generate_license()
+{
+# add license
+ cat > LICENSE <<- EOM
+MIT License
+
+Copyright (c) 2018 Raghu Veer S
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+EOM
+}
+
+generate_readme()
+{
+ cat > README.md <<- EOM
+## $1
+EOM
+}
+
+generate_build_readme()
+{
+ cat > build/README.md <<- EOM
+## BUILD
+run \`run cmake .. && make\` from here
+EOM
+}
+
+generate_cmakelists()
+{
+ cat > CMakeLists.txt <<- EOM
+cmake_minimum_required(VERSION 3.0)
+
+set(CMAKE_BUILD TYPE Debug)
+set(CMAKE_CXX_FLAGS "\${CMAKE_CXX_FLAGS} -std=c++11")
+project($1)
+
+include_directories(include)
+
+file(GLOB SOURCES "src/*.cc")
+file(GLOB EXAMPLES "examples/*.cc")
+
+add_executable(
+  $1
+  \${SOURCES}
+  \${EXAMPLES}
+)
+EOM
+}
+
+generate_travis_script()
+{
+ cat > .travis.yml <<- EOM
+dist: trusty
+sudo: require
+language: cpp
+compiler: gcc
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-6
+      - g++-6
+      - cmake
+script:
+  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
+  - export CC=/usr/bin/gcc-6
+  - export CXX=/usr/bin/g++-6
+  - gcc -v && g++ -v && cmake --version
+  - mkdir -p build
+  - cd build
+  - cmake .. && make
+EOM
+}
+
+populate_project()
+{
+  CC="$1.cc"
+  HEADER="$1.h"
+  
+  mkdir -p src include examples scripts build lib;
+  touch CMakeLists.txt .travis.yml README.md build/README.md LICENSE src/main.cc src/$CC examples/example.cc include/$HEADER scripts/install.sh
+ 
+  generate_cc $1 $CC $HEADER
+  generate_h $1 $CC $HEADER
+  generate_license
+  generate_readme $1
+  generate_build_readme
+  generate_cmakelists $1
+  generate_travis_script
+}
+
+create_project()
+{
+  mkdir -p $1;
+  cd $1;
+  populate_project $1
+}
+
+create_project $1
+
+
+
