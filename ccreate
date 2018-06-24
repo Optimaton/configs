@@ -1,4 +1,40 @@
 #!/bin/bash
+# author Raghu Veer S
+# This script reduces the amount of boilerplate required to setup c++ projects.
+# This may not be similar for everyone but my project tree looks like this
+# project
+#    | 
+#    |----src
+#    |     |
+#    |     |----main.cc
+#    |     |----project.cc
+#    |     |----few_other_src_files
+#    |
+#    |----include
+#    |       |
+#    |       |----project.h
+#    |       |----few_other_header_files
+#    |
+#    |----lib[this is optional]
+#    |       |----libraries_required_for_project
+#    |       
+#    |----examples[this is optional]
+#    |       |----example_<type>.cc
+#    |       |----few_other_example_files_like_the_one_above
+#    |
+#    |----scripts[this is optional]
+#    |      |----install.sh
+#    |      |----few_other_scripts
+#    |
+#    |----build
+#    |      |----Makefile
+#    |      |----other_build_files
+#    |      |----README.md
+#    |      
+#    |----CMakeLists.txt
+#    |----README.md
+#    |----Doxyfile
+#    |----.travis.yml
 
 generate_cc()
 {
