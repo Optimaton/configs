@@ -1,6 +1,6 @@
 
 
-# dotfiles
+# configs
 
 These are my most used configuration files.
 
