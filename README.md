@@ -29,8 +29,11 @@ These are my most used configuration files.
 >        |       |----libraries_required_for_project
 >        |       
 >        |----examples[this is optional]
->        |       |----example_<type>.cc
->        |       |----few_other_example_files_like_the_one_above
+>        |      |----example_<feature1>.cc
+>        |      |----  .
+>        |      |----  .
+>        |      |----  .
+>        |      |----example_<featureN>.cc
 >        |
 >        |----scripts[this is optional]
 >        |      |----install.sh
@@ -41,6 +44,16 @@ These are my most used configuration files.
 >        |      |----other_build_files
 >        |      |----README.md
 >        |      
+>        |----test
+>        |      |----test_<feature1>.cc
+>        |      |----  .
+>        |      |----  .
+>        |      |----  .
+>        |      |----test_<featureN>.cc
+>        |    
+>        |----docs
+>        |      |----doxygen_generated_docs
+>        |  
 >        |----CMakeLists.txt
 >        |----README.md
 >        |----Doxyfile
