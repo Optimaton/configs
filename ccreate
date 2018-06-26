@@ -2,39 +2,53 @@
 # author Raghu Veer S
 # This script reduces the amount of boilerplate required to setup c++ projects.
 # This may not be similar for everyone but my project tree looks like this
-# project
-#    | 
-#    |----src
-#    |     |
-#    |     |----main.cc
-#    |     |----project.cc
-#    |     |----few_other_src_files
-#    |
-#    |----include
-#    |       |
-#    |       |----project.h
-#    |       |----few_other_header_files
-#    |
-#    |----lib[this is optional]
-#    |       |----libraries_required_for_project
-#    |       
-#    |----examples[this is optional]
-#    |       |----example_<type>.cc
-#    |       |----few_other_example_files_like_the_one_above
-#    |
-#    |----scripts[this is optional]
-#    |      |----install.sh
-#    |      |----few_other_scripts
-#    |
-#    |----build
-#    |      |----Makefile
-#    |      |----other_build_files
-#    |      |----README.md
-#    |      
-#    |----CMakeLists.txt
-#    |----README.md
-#    |----Doxyfile
-#    |----.travis.yml
+# project_name
+# | 
+# |----src
+# |     |
+# |     |----main.cc
+# |     |----project_name.cc
+# |     |----few_other_src_files
+# |
+# |----include
+# |       |
+# |       |----project_name.h
+# |       |----few_other_header_files
+# |
+# |----lib[this is optional]
+# |       |----libraries_required_for_project
+# |       
+# |----examples[this is optional]
+# |      |----example_<feature1>.cc
+# |      |----  .
+# |      |----  .
+# |      |----  .
+# |      |----example_<featureN>.cc
+# |
+# |----scripts[this is optional]
+# |      |----install.sh
+# |      |----few_other_scripts
+# |
+# |----build
+# |      |----Makefile
+# |      |----other_build_files
+# |      |----README.md
+# |      
+# |----test
+# |      |----test_<feature1>.cc
+# |      |----  .
+# |      |----  .
+# |      |----  .
+# |      |----test_<featureN>.cc
+# |    
+# |----docs
+# |      |----doxygen_generated_docs
+# |  
+# |----CMakeLists.txt
+# |----README.md
+# |----Doxyfile
+# |----.travis.yml
+#
 
 generate_cc()
 {
@@ -169,8 +183,8 @@ populate_project()
   CC="$1.cc"
   HEADER="$1.h"
   
-  mkdir -p src include examples scripts build lib;
-  touch CMakeLists.txt .travis.yml README.md build/README.md LICENSE src/main.cc src/$CC examples/example.cc include/$HEADER scripts/install.sh
+  mkdir -p src include examples scripts build lib test;
+  touch CMakeLists.txt .travis.yml README.md build/README.md LICENSE src/main.cc src/$CC examples/example.cc test/test.cc include/$HEADER scripts/install.sh
  
   generate_cc $1 $CC $HEADER
   generate_h $1 $CC $HEADER
