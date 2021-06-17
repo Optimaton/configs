@@ -24,7 +24,6 @@ set cmdheight=2
 set switchbuf=useopen
 " Always show tabl bar at the top
 set showtabline=2
-set winwidth=79
 set shell=bash
 " keep more content when scrolling off the end of the budder
 set scrolloff=3
@@ -59,12 +58,11 @@ endif
 set term=xterm-256color
 "Completion option
 :set completeopt=menu,preview
-set laststatus=1 " show status line always
+set laststatus=2 " show status line always
 set encoding=utf-8
 " Set color to my taste
 :color lucius
 LuciusBlackHighContrast
-
 
 """""""""""""""""""""""
 " Working with Folds  "
@@ -102,21 +100,29 @@ inoremap <> template<typename><left><space>
 inoremap {; {<CR><CR>};<left><left><up><space><space>
 
 """""""""""""""""""""""""""""""""""""""""
+" CUSTOM KEYCODE MAPS
+"""""""""""""""""""""""""""""""""""""""""
+ca tn tabnew
+ca th tabp
+ca tl tabn
+ca te tabedit
+
+
+"""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS          
 """""""""""""""""""""""""""""""""""""""""
 augroup vimrcEx
 	" Clear all autcmds in the group
 	autocmd!
 	"stolen from gary's
-	autocmd FileType text setlocal textwidth=78 
 	autocmd FileType cpp,ruby,yaml,html,css,sass setlocal ai sw=2 sts=2 et
 	autocmd FileType python setlocal ai sw=4 sts=2 et
 
 	" Don't syntax highlight markdown
-	autocmd! FileType mkd setlocal syn=off
+	autocmd! FileType mkd setlocal syn=off 
 
 	" *.md is markdown
-	autocmd! BufNewFile,BufRead *.md setlocal ft=markdow
+	autocmd! BufNewFile,BufRead *.md setlocal formatoptions+=t
 
 	" js, json
 	autocmd! FileType javascript,json set sw=2 sts=2 expandtab
@@ -132,6 +138,15 @@ augroup vimrcEx
 	autocmd bufnewfile,bufread *.jsx set filetype=javascript.jsx
 augroup END
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Netrw appearance: Make it look like Nerdtree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+ 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
@@ -185,8 +200,7 @@ function! ToggleCloze(...)
   endif
 
   if g:toggleCloze == 0 "normal action, do the hi
-    exec 'highlight clozedel ctermfg=white guifg=white ctermbg=black guibg=black | match clozedel /\%' . line('.') . 'l{{.\{-\}}}/' 
-    exec 'highlight cloze1 ctermfg=black guifg=black ctermbg=black guibg=black | match cloze1 /\%>' . line('.') . 'l.{{.\{-\}}}/ | match cloze1 /\%>' . line('.') . 'l.{{.\{-\}}}/' 
+		exec 'highlight cloze1 ctermfg=white guifg=white ctermbg=white guibg=white | match cloze1 /\%>' . line('.') . 'l.{{.\{-\}}}/'
   else 
     exec 'highlight cloze ctermfg=black guifg=black ctermbg=white guibg=white | match cloze /{{.*}}/'
   endif
